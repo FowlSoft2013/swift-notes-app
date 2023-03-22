@@ -12,6 +12,8 @@ import { SwiftNoteListAddComponent } from './components/swift-note-list-add/swif
 import { SwiftNoteListDisplayComponent } from './components/swift-note-list-display/swift-note-list-display.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { MyNotesToolbarComponent } from './components/my-notes-toolbar/my-notes-toolbar.component';
+import { NoteNotificationTagComponent } from './components/note-notification-tag/note-notification-tag.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -23,13 +25,15 @@ import { MyNotesToolbarComponent } from './components/my-notes-toolbar/my-notes-
     SwiftNoteListAddComponent,
     SwiftNoteListDisplayComponent,
     PaginationComponent,
-    MyNotesToolbarComponent
+    MyNotesToolbarComponent,
+    NoteNotificationTagComponent
   ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

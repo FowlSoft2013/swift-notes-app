@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import NoteModel from "../../models/note.model";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NoteService} from "../../services/note/note.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {concatMap, of} from "rxjs";
@@ -14,13 +14,12 @@ export class ManageNotePageComponent {
   noteId?: string;
   note?: NoteModel;
   createNoteForm: FormGroup = new FormGroup({
-    title: new FormControl(),
-    contentType: new FormControl('TEXT'),
-    content: new FormControl()
+    title: new FormControl('', Validators.required),
+    contentType: new FormControl('TEXT', Validators.required),
+    content: new FormControl('', Validators.required)
   });
   listItems: string[] = [];
   isSuccess: boolean = false;
-  isError: boolean = false;
 
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -46,23 +45,28 @@ export class ManageNotePageComponent {
   }
 
   saveNote(isAddAnother: boolean) {
-    let noteToSave = new NoteModel({
-      id: this.noteId ? this.noteId : crypto.randomUUID(),
-      title: this.createNoteForm.controls['title'].value,
-      content: this.createNoteForm.controls['content'].value,
-      listItems: this.listItems,
-      savedDate: new Date(Date.now())
-    });
+    if(this.isValid()) {
+      let noteToSave = new NoteModel({
+        id: this.noteId ? this.noteId : crypto.randomUUID(),
+        title: this.createNoteForm.controls['title'].value,
+        content: this.createNoteForm.controls['content'].value,
+        listItems: this.listItems,
+        savedDate: new Date(Date.now())
+      });
 
-    if(this.noteId)
-      this.noteService.editNote(this.noteId, noteToSave)
-    else
-      this.noteService.saveNote(noteToSave).subscribe(() => this.isSuccess = true);
 
-    if (isAddAnother)
-      this.createNoteForm.reset();
-    else
-      this.router.navigateByUrl('');
+      if(this.noteId) {
+        this.noteService.editNote(this.noteId, noteToSave).subscribe(() => this.isSuccess = true);
+        this.router.navigateByUrl('note');
+      }
+      else
+        this.noteService.saveNote(noteToSave).subscribe(() => this.isSuccess = true);
+
+      if (isAddAnother)
+        this.createNoteForm.reset();
+      else
+        this.router.navigateByUrl('');
+    }
   }
 
   setListItems(e: string[]) {
@@ -86,5 +90,30 @@ export class ManageNotePageComponent {
     else{
       this.listItems = [];
     }
+  }
+
+  setIsSuccess(isSuccess: boolean) {
+    this.isSuccess = isSuccess;
+  }
+
+  isFormControlInValid(controlName: string){
+    return this.createNoteForm.controls[controlName].touched && this.createNoteForm.controls[controlName].status == 'INVALID';
+  }
+
+  isValid(): boolean {
+    let isListValid = (
+        this.createNoteForm.controls['contentType'].value == 'LIST'
+          && this.listItems.length > 0
+          && this.createNoteForm.controls['title'].status == 'VALID'
+      ) ||
+      this.createNoteForm.controls['contentType'].value == 'TEXT';
+
+    let isTextValid = (
+      this.createNoteForm.controls['contentType'].value == 'TEXT'
+        && this.createNoteForm.status == 'VALID'
+      ) ||
+      this.createNoteForm.controls['contentType'].value == 'LIST';
+
+    return isListValid && isTextValid;
   }
 }
