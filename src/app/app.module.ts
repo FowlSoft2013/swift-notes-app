@@ -3,15 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ManageNotePageComponent } from './pages/manage-note-page/manage-note-page.component';
+import { MyNotesPageComponent } from './pages/my-notes-page/my-notes-page.component';
+import { SwiftNoteCardComponent } from './components/swift-note-card/swift-note-card.component';
+import { MainSlotComponent } from './slots/main-slot/main-slot.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { SwiftNoteListAddComponent } from './components/swift-note-list-add/swift-note-list-add.component';
+import { SwiftNoteListDisplayComponent } from './components/swift-note-list-display/swift-note-list-display.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { MyNotesToolbarComponent } from './components/my-notes-toolbar/my-notes-toolbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ManageNotePageComponent,
+    MyNotesPageComponent,
+    SwiftNoteCardComponent,
+    MainSlotComponent,
+    SwiftNoteListAddComponent,
+    SwiftNoteListDisplayComponent,
+    PaginationComponent,
+    MyNotesToolbarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

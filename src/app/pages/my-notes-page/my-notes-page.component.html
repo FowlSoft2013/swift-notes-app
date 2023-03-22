@@ -1,0 +1,30 @@
+<div class="section">
+  <app-my-notes-toolbar
+    [notes]="notes"
+    (noteSearchResultEmitter)="setSearchedNotes($event)"
+    (deleteQueuedNotesEmitter)="deleteQueuedNotes()">
+  </app-my-notes-toolbar>
+  <div *ngIf="notes">
+    <hr/>
+    <div class="columns is-centered is-vcentered" style="min-height: 400px" *ngIf="notes.length ==0 ">
+      <div class="column is-4">
+        <p class="has-text-centered title">You have no notes saved</p>
+        <p class="has-text-centered" >
+          <a class="link" routerLink="note">Create a note</a>
+        </p>
+      </div>
+    </div>
+    <div class="columns is-multiline mt-1">
+      <div class="column is-6" *ngFor="let note of notesForCurrentPage">
+        <app-swift-note-card [note]="note"
+                             (deleteNoteEventEmitter)="deleteNote($event)"
+                             (queueForDeletionEmitter)="setNotesQueuedForDeletion($event)"
+        ></app-swift-note-card>
+      </div>
+    </div>
+    <hr/>
+  </div>
+
+  <app-pagination [listData]="matchedNotes"
+                  (itemsForCurrentPageEventEmitter)="setNotesForCurrentPage($event)"></app-pagination>
+</div>

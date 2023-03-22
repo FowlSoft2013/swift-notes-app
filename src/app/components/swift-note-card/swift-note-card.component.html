@@ -1,5 +1,9 @@
-<div class="card">
-  <header class="card-header">
+<div class="card clickable-card" (click)="setIsQueuedForDeletion()"
+     [class.mt-2]="!isQueuedForDeletion"
+     [style.border]="isQueuedForDeletion ? 'solid' : ''"
+     [style.border-color]="isQueuedForDeletion ? '#3b79de' : ''"
+     [style.border-width]="isQueuedForDeletion ? '5px' : ''">
+  <header class="card-header has-background-link-light">
     <p class="card-header-title">
       {{note.title}}
     </p>
@@ -18,11 +22,11 @@
         <app-swift-note-list-display [listItems]="note.listItems"></app-swift-note-list-display>
       </div>
       <br>
-      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      Saved On: <time>{{getFormattedSavedDate()}}</time>
     </div>
   </div>
   <footer class="card-footer">
     <a routerLink="/note/{{note.id}}" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
+    <a (click)="deleteNoteEventEmitter.emit(note.id)" class="card-footer-item">Delete</a>
   </footer>
 </div>

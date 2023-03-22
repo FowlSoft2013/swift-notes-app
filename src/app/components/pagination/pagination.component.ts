@@ -26,10 +26,9 @@ export class PaginationComponent {
   }
 
   ngOnChanges(changes: any) {
-    console.log(changes);
     if (changes.listData.currentValue) {
       this.numberOfPages = this.listData && this.listData.length > this.numberOfItemsToDisplay
-        ? Math.round(this.listData.length / this.numberOfItemsToDisplay): 1;
+        ? Math.ceil(this.listData.length / this.numberOfItemsToDisplay): 1;
       this.listData?.forEach((ld, i) => this.pages.push(i + 1));
       this.firstPage = 1;
       this.lastPage = this.numberOfPages;

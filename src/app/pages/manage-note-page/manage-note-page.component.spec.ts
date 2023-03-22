@@ -1,18 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateNotePageComponent } from './create-note-page.component';
+import { ManageNotePageComponent } from './manage-note-page.component';
+import {AppRoutingModule} from "../../app-routing.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
-describe('CreateNotePageComponent', () => {
-  let component: CreateNotePageComponent;
-  let fixture: ComponentFixture<CreateNotePageComponent>;
+describe('ManageNotePageComponent', () => {
+  let component: ManageNotePageComponent;
+  let fixture: ComponentFixture<ManageNotePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateNotePageComponent ]
+      declarations: [ ManageNotePageComponent ],
+      imports: [AppRoutingModule, ReactiveFormsModule]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateNotePageComponent);
+    fixture = TestBed.createComponent(ManageNotePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
