@@ -1,0 +1,19 @@
+<div class="control">
+  <div class="field has-addons">
+    <p class="control">
+      <input class="input" type="text" placeholder="List Item" [(ngModel)]="listItem">
+    </p>
+    <p class="control">
+      <a class="button" (click)="addListItem()">
+        Add Item
+      </a>
+    </p>
+  </div>
+  <div class="box">
+    <div class="columns is-multiline">
+      <div class="column is-6" *ngFor="let li of listItems">
+        {{li}}
+      </div>
+    </div>
+  </div>
+</div>

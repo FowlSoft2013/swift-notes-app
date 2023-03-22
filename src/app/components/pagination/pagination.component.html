@@ -1,0 +1,14 @@
+<nav class="pagination m-2" role="navigation" aria-label="pagination">
+  <a class="pagination-previous" (click)="goToPreviousPage()">Previous page</a>
+  <a class="pagination-next" (click)="goToNextPage()">Next page</a>
+  <ul class="pagination-list">
+    <li *ngFor="let pageNumber of selectablePages">
+      <a [class.is-current]="pageNumber == currentPageNumber || numberOfPagesToDisplay == 1"
+         (click)="goToPage(pageNumber)"
+         class="pagination-link">{{pageNumber}}</a>
+    </li>
+    <li *ngIf="numberOfPages > numberOfPagesToDisplay"><span class="pagination-ellipsis">&hellip;</span></li>
+    <li><a class="pagination-link" [class.is-current]="lastPage == currentPageNumber"
+           (click)="goToPage(lastPage)">{{lastPage}}</a></li>
+  </ul>
+</nav>
